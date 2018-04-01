@@ -27,7 +27,7 @@ public class MoviesRemoteSource implements MoviesSource {
 
     @Override
     public void getMoviesByRating(int pageNumber,LoadMoviesCallback callback) {
-        moviesApi.getPopularMoviesPage(pageNumber, BuildConfig.TheMovieDatabaseApiKey).enqueue(getCallback(callback));
+        moviesApi.getRatedMoviesPage(pageNumber, BuildConfig.TheMovieDatabaseApiKey).enqueue(getCallback(callback));
     }
 
     @NonNull
@@ -35,8 +35,12 @@ public class MoviesRemoteSource implements MoviesSource {
         return new Callback<MovieDataModel>() {
             @Override
             public void onResponse(Call<MovieDataModel> call, Response<MovieDataModel> response) {
-                MovieDataModel movieDataModel = response.body();
-                callback.onMoviesLoaded(movieDataModel.getMovies());
+                if(response.code() == 200) {
+                    MovieDataModel movieDataModel = response.body();
+                    callback.onMoviesLoaded(movieDataModel.getMovies());
+                }else{
+                    callback.onDataNotAvailable();
+                }
             }
 
             @Override

@@ -1,8 +1,11 @@
 package org.example.popularmovies.domain.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Movie {
+public class Movie implements Parcelable {
 
 
     private int id;
@@ -40,4 +43,43 @@ public class Movie {
     public String getReleseDate() {
         return releseDate;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.image);
+        dest.writeString(this.synopsis);
+        dest.writeDouble(this.rating);
+        dest.writeString(this.releseDate);
+    }
+
+    public Movie() {
+    }
+
+    protected Movie(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.image = in.readString();
+        this.synopsis = in.readString();
+        this.rating = in.readDouble();
+        this.releseDate = in.readString();
+    }
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 }

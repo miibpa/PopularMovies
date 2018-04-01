@@ -13,6 +13,6 @@ public interface MoviesApi {
     @GET("movie/popular")
     Call<MovieDataModel> getPopularMoviesPage(@Query("page")int page,@Query("api_key") String apiKey);
 
-    @GET("movie/rated")
+    @GET("movie/top_rated")
     Call<MovieDataModel> getRatedMoviesPage(@Query("page")int page,@Query("api_key") String apiKey);
 }

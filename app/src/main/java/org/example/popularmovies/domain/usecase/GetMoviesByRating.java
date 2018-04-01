@@ -2,17 +2,17 @@ package org.example.popularmovies.domain.usecase;
 
 import org.example.popularmovies.data.MoviesSource;
 
-public class GetMoviesByPopularity {
+public class GetMoviesByRating {
 
     private final MoviesSource moviesSource;
 
-    public GetMoviesByPopularity(MoviesSource moviesSource) {
+    public GetMoviesByRating(MoviesSource moviesSource) {
         this.moviesSource = moviesSource;
     }
 
     public void execute(int pageNumber, MoviesSource.LoadMoviesCallback callback){
 
-        moviesSource.getMoviesByPopularity(pageNumber,callback);
+        moviesSource.getMoviesByRating(pageNumber,callback);
 
     }
 }
